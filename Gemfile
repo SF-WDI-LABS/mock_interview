@@ -35,6 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'rspec-rails'
