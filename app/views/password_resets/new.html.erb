@@ -1,0 +1,9 @@
+<h1>Reset Password</h1>
+<hr>
+<%= form_for :password_reset, url: password_resets_path do |f| %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Your email", class: "form-control", autofocus: true %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-block btn-default" %>
+<% end %>

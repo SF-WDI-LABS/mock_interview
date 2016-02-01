@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :reset_token
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -16,5 +17,19 @@ class User < ActiveRecord::Base
       with: /@/,
       message: "not a valid format"
     }
+
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  def self.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attributes({ reset_digest: User.digest(reset_token), reset_sent_at: Time.now })
+  end
 
 end
