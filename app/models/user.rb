@@ -27,6 +27,12 @@ class User < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
 
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
   def create_reset_digest
     self.reset_token = User.new_token
     update_attributes({ reset_digest: User.digest(reset_token), reset_sent_at: Time.now })
