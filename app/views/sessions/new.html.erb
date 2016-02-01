@@ -1,6 +1,6 @@
 <h1>Log In</h1>
 <hr>
-<%= form_for :user, url: "/sessions", method: :post do |f| %>
+<%= form_for :user, url: sessions_path do |f| %>
   <div class="form-group">
     <%= f.label :email %>
     <%= f.email_field :email, placeholder: "Your email", class: "form-control", autofocus: true %>
