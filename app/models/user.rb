@@ -38,4 +38,8 @@ class User < ActiveRecord::Base
     update_attributes({ reset_digest: User.digest(reset_token), reset_sent_at: Time.now })
   end
 
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
 end
